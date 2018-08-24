@@ -1,0 +1,58 @@
+zuul:
+# Service will be mapped under the /api URI
+# Either url or serviceId can be used while routing it to service
+  prefix: /api
+  routes:
+   product-service:
+      path: /server/**
+      url: http://localhost:8073
+   hello-client:
+      path: /client/**
+      serviceId: HELLO-CLIENT
+
+
+## Eureka Server config details which is running in 8070
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+#  zuul:
+#  prefix: /api
+#  routes:
+#    product-service:
+#      path: /server/**
+#      url: http://localhost:8073
+#    hello-client:
+#      path: /client/**
+#      serviceId: HELLO-CLIENT
+
+
+# Eureka Server config details for BICS
+
+# eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: https://eurekaservice.apps.de1.bosch-iot-cloud.com/eureka/
+#  instance:
+#    hostname: eurekaservice.apps.de1.bosch-iot-cloud.com
+#    nonSecurePort: 80
+
+
+
+
+#Zuul Server Port and Applicatio Name  
+  spring:
+  application:
+    name: zuul-service
+
+# Increase the Hystrix timeout to 60s (for all)
+  hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
